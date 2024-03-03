@@ -1,0 +1,658 @@
+<!doctype refentry PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+
+<!-- Process this file with docbook-to-man to generate an nroff manual
+     page: `docbook-to-man manpage.sgml > manpage.1'.  You may view
+     the manual page with: `docbook-to-man manpage.sgml | nroff -man |
+     less'.  A typical entry in a Makefile or Makefile.am is:
+
+manpage.1: manpage.sgml
+	docbook-to-man $< > $@
+
+    
+	The docbook-to-man binary is found in the docbook-to-man package.
+	Please remember that if you create the nroff version in one of the
+	debian/rules file targets (such as build), you will need to include
+	docbook-to-man in your Build-Depends control field.
+
+  -->
+
+  <!-- Fill in your name for FIRSTNAME and SURNAME. -->
+  <!ENTITY dhfirstname "<firstname>akira</firstname>">
+  <!ENTITY dhsurname   "<surname>yamada</surname>">
+  <!-- Please adjust the date whenever revising the manpage. -->
+  <!ENTITY dhdate      "<date>Dec 14, 2003</date>">
+  <!-- SECTION should be 1-8, maybe w/ subsection other parameters are
+       allowed: see man(7), man(1). -->
+  <!ENTITY dhsection   "<manvolnum>1</manvolnum>">
+  <!ENTITY dhemail     "<email>akira@debian.org</email>">
+  <!ENTITY dhusername  "akira yamada">
+  <!ENTITY dhucpackage "<refentrytitle>BSFILTER</refentrytitle>">
+  <!ENTITY dhpackage   "bsfilter">
+
+  <!ENTITY debian      "<productname>Debian</productname>">
+  <!ENTITY gnu         "<acronym>GNU</acronym>">
+  <!ENTITY gpl         "&gnu; <acronym>GPL</acronym>">
+]>
+
+<refentry>
+  <refentryinfo>
+    <address>
+      &dhemail;
+    </address>
+    <author>
+      &dhfirstname;
+      &dhsurname;
+    </author>
+    <copyright>
+      <year>2003</year>
+      <holder>&dhusername;</holder>
+    </copyright>
+    &dhdate;
+  </refentryinfo>
+  <refmeta>
+    &dhucpackage;
+
+    &dhsection;
+  </refmeta>
+  <refnamediv>
+    <refname>&dhpackage;</refname>
+
+    <refpurpose>bayesian spam filter</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>&dhpackage;</command>
+      <arg><option>options</option></arg>
+      <arg><option>commands</option></arg>
+      <arg choice="req">&lt; MAIL</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+      <command>&dhpackage;</command>
+      <arg><option>options</option></arg>
+      <arg><option>commands</option></arg>
+      <arg choice="req">MAIL ...</arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para><command>&dhpackage;</command> filters out spam
+    mails.</para>
+
+    <para>If commands are specified, bsfilter is in maintenance mode,
+      otherwise it is in filtering mode.</para>
+
+    <para>If bsfilter does not find spam in filtering mode, exit status is 1.</para>
+
+    <para>If bsfilter runs with --pipe option or finds spam, exit status is 0.</para>
+  </refsect1>
+  <refsect1>
+    <title>COMMANDS</title>
+
+    <variablelist>
+      <varlistentry>
+	<term><option>--add-clean</option></term>
+	<term><option>-c</option></term>
+	<listitem>
+	  <para>add mails into the clean token database.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--add-spam</option></term>
+	<term><option>-s</option></term>
+	<listitem>
+	  <para>add mails into the spam token database.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--sub-clean</option></term>
+	<term><option>-C</option></term>
+	<listitem>
+	  <para>subtract mails from the clean token database.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--sub-spam</option></term>
+	<term><option>-S</option></term>
+	<listitem>
+	  <para>subtract mails from the spam token database.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--update</option></term>
+	<term><option>-u</option></term>
+	<listitem>
+	  <para>update the probability table from clean and spam token
+	    databases.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--export-clean</option></term>
+	<listitem>
+	  <para>export the clean token database.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--export-spam</option></term>
+	<listitem>
+	  <para>export the spam token database.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--import-clean</option></term>
+	<listitem>
+	  <para>import the clean token database.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--import-spam</option></term>
+	<listitem>
+	  <para>import the spam token database.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--export-probability</option></term>
+	<listitem>
+	  <para>export the probability database (for debugging purpose).</para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <variablelist>
+      <varlistentry>
+        <term><option>--homedir <replaceable>directory</replaceable></option></term>
+	<listitem>
+	  <para>specify the name of the bsfilter's home
+	    directory.</para>
+
+	  <para>If this option is not used, a directory specified with
+	    the environment variable "BSFILTERHOME" is used.</para>
+
+	  <para>If the variable "BSFILTERHOME" is not defined,
+	    ".bsfilter" directory under your home is used.</para>
+
+	  <para>If the variable "HOME" is not defined, a directory
+	    which bsfilter is located at is used.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--config-file <replaceable>file</replaceable></option></term>
+	<listitem>
+	  <para>specify the name of the bsfilter's configuration file
+	    "bsfilter.conf" in bsfilter's home directory is used by
+	    default.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--max-line <replaceable>number</replaceable></option></term>
+	<listitem>
+	  <para>check and/or study the first number of lines default
+	    is 500. 0 means all.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--db <replaceable>sdbm|gdbm|bdb1|bdb|qdbm</replaceable></option></term>
+	<listitem>
+	  <para>specify the name of database type "sdbm" by default.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--jtokenizer <replaceable>bigram|block|mecab|chasen|kakasi</replaceable></option></term>
+	<term><option>-j <replaceable>bigram|block|mecab|chasen|kakasi</replaceable></option></term>
+	<listitem>
+	  <para>specify algorithm of a tokenizer for Japanese language
+	    "bigram" by default.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--list-clean</option></term>
+	<listitem>
+	  <para>print filename of clean mail.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--list-spam</option></term>
+	<listitem>
+	  <para>print filename of spam.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap</option></term>
+	<listitem>
+	  <para>access IMAP server.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-server <replaceable>hostname</replaceable></option></term>
+	<listitem>
+	  <para>specify hostname of IMAP server.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-port <replaceable>number</replaceable></option></term>
+	<listitem>
+	  <para>specify port number of IMAP server. default is
+	    143.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-auth <replaceable>method</replaceable></option></term>
+	<listitem>
+	  <para>specify authorization method. default is "auto".
+	    "cram-md5" use "AUTHENTICATE CRAM-MD5" command.
+	    "login" use "AUTHENTICATE LOGIN" command.
+	    "loginc" use "LOGIN" command.
+	    "auto" try "cram-md5", "login" and "loginc" in this order.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-user <replaceable>name</replaceable></option></term>
+	<listitem>
+	  <para>specify user name of IMAP server.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-password <replaceable>password</replaceable></option></term>
+	<listitem>
+	  <para>specify password of imap-user.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-folder-clean <replaceable>folder</replaceable></option></term>
+	<listitem>
+	  <para>specify destination folder for clean
+	    mails. "inbox.clean" for example.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-folder-spam <replaceable>folder</replaceable></option></term>
+	<listitem>
+	  <para>specify destination folder for spams. "inbox.spam" for
+	    example.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-fetch-unseen</option></term>
+	<listitem>
+	  <para>filter or study mails without SEEN flag.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-fetch-unflagged</option></term>
+	<listitem>
+	  <para>filter or study mails without "X-Spam-Flag"
+	    header.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--imap-reset-seen-flag</option></term>
+	<listitem>
+	  <para>reset SEEN flag when bsfilter moves or modifies
+	    mails.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pop</option></term>
+	<listitem>
+	  <para>work as POP proxy.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pid-file <replaceable>file</replaceable></option></term>
+	<listitem>
+	  <para>specify filename for logging process ID of bsfilter
+	    "bsfilter.pid" in bsfilter's home directory is used by
+	    default this function is valid when "--pop" is
+	    specified.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--tasktray</option></term>
+	<listitem>
+	  <para>sit in tasktray this is valid with "--pop" on
+	    VisualuRuby.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pop-server <replaceable>hostname</replaceable></option></term>
+	<listitem>
+	  <para>specify hostname of POP server.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pop-port <replaceable>number</replaceable></option></term>
+	<listitem>
+	  <para>specify port number of POP server. default is
+	  110.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pop-proxy-if <replaceable>address</replaceable></option></term>
+	<listitem>
+	  <para>specify address of interface which bsfilter listens at
+	    default is 0.0.0.0 and all interfaces are active.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pop-proxy-port <replaceable>number</replaceable></option></term>
+	<listitem>
+	  <para>specify port number which bsfilter listens at. default
+	  is 10110.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pop-user <replaceable>name</replaceable></option></term>
+	<listitem>
+	  <para>optional. specify username of POP server.</para>
+
+	  <para>bsfilter checks match between value of this options
+	  and a name which MUA sends.</para>
+
+	  <para>in case of mismatch, bsfilter closes sockets.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pop-proxy-set <replaceable>set[,set...]</replaceable></option></term>
+	<listitem>
+	  <para>specify rules of pop proxy.</para>
+
+	  <para>alternative way of pop-server, pop-port,
+	  pop-proxy-port and pop-user option.</para>
+
+	  <para>format of "set" is
+	    "pop-server:pop-port:[proxy-interface]:proxy-port[:pop-user]".</para>
+
+	  <para>If proxy-interface is specified and isn't 0.0.0.0 ,
+	    other interfaces are not used.</para>
+
+	  <para>"--pop-proxy-set 192.168.1.1:110::10110" is equivalent
+	    with "--pop-server 192.168.1.1 --pop-port 110
+	    --pop-proxy-port 10110".</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pop-max-size <replaceable>number</replaceable></option></term>
+	<listitem>
+	  <para>When mail is longer than the specified number, the
+	    mail is not filtered.  When 0 is specified, all mails are
+	    tested and filtered.  unit is byte. default is
+	    50000.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--ssl</option></term>
+	<listitem>
+	  <para>use POP over SSL with --pop option and use IMAP over SSL
+	    with --imap option.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--ssl-cert <replaceable>filename|dirname</replaceable></option></term>
+	<listitem>
+	  <para>specify a filename of a certificate of a trusted CA or a
+	    name of a directory of certificates.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--method <replaceable>g|r|rf</replaceable></option></term>
+	<term><option>-m <replaceable>g|r|rf</replaceable></option></term>
+	<listitem>
+	  <para>specify filtering method. "rf" by default.  "g" means
+	    Paul Graham method, "r" means Gary Robinson method, and
+	    "rf" means Robinson-Fisher method.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--spam-cutoff <replaceable>number</replaceable></option></term>
+	<listitem>
+	  <para>specify spam-cutoff value.  0.9 by default for Paul
+	  Graham method.  0.582 by default for Gary Robinson method.
+	  0.95 by default for Robinson-Fisher method.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--auto-update</option></term>
+        <term><option>-a</option></term>
+	<listitem>
+	  <para>recognize mails, add them into clean or spam token database
+	    and update the probability table.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--disable-degeneration</option></term>
+        <term><option>-D</option></term>
+	<listitem>
+	  <para>disable degeneration during probability table
+	  lookup.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--disable-utf-8</option></term>
+	<listitem>
+	  <para>disable utf-8 support.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--refer-header <replaceable>header[,header...]</replaceable></option></term>
+	<listitem>
+	  <para>refer specified headers of mails.</para>
+	  <para>bsfilter refers Ufrom, From, To, Cc, Subject, Reply-to,
+	  Return-path, Received, Content-Transfer-Encoding, Content-Type,
+	  charset, and Content-Disposition by default.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--refer-all-header</option></term>
+	<listitem>
+	  <para>refer all headers of mails.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--ignore-header</option></term>
+	<term><option>-H</option></term>
+	<listitem>
+	  <para>ignore headers of mails.
+          (it is same as --refer-header "".)</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--ignore-body</option></term>
+	<term><option>-B</option></term>
+	<listitem>
+	  <para>ignore body of mails, except URL or mail address.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--ignore-plain-text-part</option></term>
+	<listitem>
+	  <para>ignore plain text part if html part is included in the mail.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--ignore-after-last-atag</option></term>
+	<listitem>
+	  <para>ignore text after last "A" tag.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--mark-in-token <replaceable>characters</replaceable></option></term>
+	<listitem>
+	  <para>specify characters which are allowable in a token
+	    "*'!" by default.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--show-process</option></term>
+	<listitem>
+	  <para>show summary of execution.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--show-new-token</option></term>
+	<listitem>
+	  <para>show tokens which are newly added into the token
+	  database.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--mbox</option></term>
+	<listitem>
+	  <para>use "unix from" to divide mbox format file.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--max-mail <replaceable>number</replaceable></option></term>
+	<listitem>
+	  <para>reduce token database when the number of stored mails
+	    is larger than this one 10000 by default.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--min-mail <replaceable>number</replaceable></option></term>
+	<listitem>
+	  <para>reduce token database as if this number of mails are
+	    stored 8000 by default.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--pipe</option></term>
+	<listitem>
+	  <para>write a mail to stdout.  this options is invalid when
+	    "--imap" or "--pop" is specified.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--insert-revision</option></term>
+	<listitem>
+	  <para>insert "X-Spam-Revision: bsfilter release..." into a mail.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--insert-flag</option></term>
+	<listitem>
+	  <para>insert "X-Spam-Flag: Yes" or "X-Spam-Flag: No" into a
+	  mail.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--insert-probability</option></term>
+	<listitem>
+	  <para>insert "X-Spam-Probability: number" into a mail.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--header-prefix <replaceable>string</replaceable></option></term>
+	<listitem>
+	  <para>insert "X-specified_string-..." headers, instead of "Spam".
+	    (it is valid with --insert-flag and/or --insert-probability
+	    option.)</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--mark-spam-subject</option></term>
+	<listitem>
+	  <para>insert "[SPAM] " at the beginning of Subject header.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--mark-subject-prefix <replaceable>string</replaceable></option></term>
+	<listitem>
+	  <para>insert specified string, instead of "[SPAM] ".  (it is valid
+	    with --mark-spam-subject option.)</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--show-db-status</option></term>
+	<listitem>
+	  <para>show numbers of tokens and mails in databases and quit.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--help</option></term>
+        <term><option>-h</option></term>
+	<listitem>
+	  <para>show help message.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--quiet</option></term>
+	<term><option>-q</option></term>
+	<listitem>
+	  <para>quiet mode.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--verbose</option></term>
+	<term><option>-v</option></term>
+	<listitem>
+	  <para>verbose mode.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>--debug</option></term>
+	<term><option>-d</option></term>
+	<listitem>
+	  <para>debug mode.</para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+  <refsect1>
+    <title>EXAMPLES</title>
+    <screen>% bsfilter -s ~/Mail/spam/*			## add spam
+% bsfilter -u -c ~/Mail/job/* ~/Mail/private/*	## add clean mails and update probability table
+% bsfilter ~/Mail/inbox/1			## show spam probability</screen>
+
+    <programlisting>## recipe of procmail
+:0 HB
+* ? bsfilter -a
+spam/.</programlisting>
+
+    <programlisting>## recipe of procmail
+:0 fw
+| bsfilter -a --pipe --insert-flag --insert-probability</programlisting>
+  </refsect1>
+  <refsect1>
+    <title>SEE ALSO</title>
+    <para>http://sourceforge.jp/projects/bsfilter/</para>
+  </refsect1>
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para>The original manual is in the bsfilter command it self which
+      is written by NABEYA Kenichi (upstream author). This manual page
+      was transrated from the manual by &dhusername; &lt;&dhemail;&gt;
+      for the &debian; system (but may be used by others).  Permission
+      is granted to copy, distribute and/or modify this document under
+      the terms of the &gnu; General Public License, Version 2 any
+      later version published by the Free Software Foundation.
+    </para>
+    <para>
+      On Debian systems, the complete text of the GNU General Public
+      License can be found in /usr/share/common-licenses/GPL.
+    </para>
+
+  </refsect1>
+</refentry>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-default-dtd-file:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+-->
+
+

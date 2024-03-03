@@ -1,0 +1,50 @@
+Description: skip gdbm test
+  ruby extension of gdbm is not packaged. Skipping this test for now
+Author: Abhijith PA <abhijith@debian.org>
+Bug-Debian: https://bugs.debian.org/1019604
+Last-Update: 2023-01-11
+---
+
+--- bsfilter-1.0.19.orig/test/test.rb
++++ bsfilter-1.0.19/test/test.rb
+@@ -403,24 +403,24 @@ class TestDBM < Test::Unit::TestCase
+     unlink_prob_sdbm
+   end
+ 
+-  def test_gdbm
+-    assert_nothing_raised('Warning: ignore this test if GDBM is NOT installed') do
+-      @bsfilter.setup($default_options + ["--db", "gdbm", "-c"])
+-    end
+-    @bsfilter.use_dummyfh
+-    @bsfilter.run(@files)
+-    assert(File::readable?("ja.clean.gdbm"), "ja.clean.gdbm")
+-    assert(File::readable?("C.clean.gdbm"), "C.clean.gdbm")
++#  def test_gdbm
++#    assert_nothing_raised('Warning: ignore this test if GDBM is NOT installed') do
++#      @bsfilter.setup($default_options + ["--db", "gdbm", "-c"])
++#    end
++#    @bsfilter.use_dummyfh
++#    @bsfilter.run(@files)
++#    assert(File::readable?("ja.clean.gdbm"), "ja.clean.gdbm")
++#    assert(File::readable?("C.clean.gdbm"), "C.clean.gdbm")
+ 
+-    @bsfilter.setup($default_options + ["--db", "gdbm", "-u"])
+-    @bsfilter.use_dummyfh
+-    @bsfilter.run([])
+-    assert(File::readable?("ja.prob.gdbm"), "ja.prob.gdbm")
+-    assert(File::readable?("C.prob.gdbm"), "C.prob.gdbm")
++#    @bsfilter.setup($default_options + ["--db", "gdbm", "-u"])
++#    @bsfilter.use_dummyfh
++#    @bsfilter.run([])
++#    assert(File::readable?("ja.prob.gdbm"), "ja.prob.gdbm")
++#    assert(File::readable?("C.prob.gdbm"), "C.prob.gdbm")
+ 
+-    unlink_token_gdbm
+-    unlink_prob_gdbm
+-  end
++#    unlink_token_gdbm
++#    unlink_prob_gdbm
++#  end
+ 
+   def _test_bdb
+     assert_nothing_raised('Warning: ignore this test if Bpt DB is NOT installed') do
