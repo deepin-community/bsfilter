@@ -1,0 +1,3 @@
+Test-Command: gem2deb-test-runner --autopkgtest 2>&1
+Depends: @, @builddeps@
+Features: test-name=gem2deb-test-runner

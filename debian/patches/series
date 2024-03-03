@@ -1,0 +1,4 @@
+010_disable_chasen
+020_disable_bdb1
+030_run_tests
+040_test_skip.patch

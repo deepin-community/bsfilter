@@ -1,0 +1,110 @@
+Description: update tests to run against modern Ruby
+ The tests have problems that break them agaist modern (2.7+) Ruby. Fix these,
+ and skip tests that won't run.
+Author: Antonio Terceiro <terceiro@debian.org>
+Origin: vendor
+Forwarded: no
+Last-Update: 2022-03-01
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/test/test.rb
++++ b/test/test.rb
+@@ -1,7 +1,7 @@
+ # -*- coding: euc-jp -*-
+ # -*-Ruby-*- $Id: test.rb,v 1.13 2013/11/03 08:26:42 nabeken Exp $
+ 
+-load '../bsfilter/bsfilter'
++load ENV.fetch("BSFILTER_BIN", '../bsfilter/bsfilter')
+ require 'test/unit'
+ require 'fileutils'
+ 
+@@ -86,7 +86,7 @@ def unlink_prob_sdbm(options = {})
+                   "C.prob.sdbm.lock",
+                   "ja.prob.sdbm.dir",
+                   "ja.prob.sdbm.pag",
+-                  "ja.prob.sdbm.lock"], options)
++                  "ja.prob.sdbm.lock"], **options)
+ end
+ def unlink_token_sdbm(options = {})
+     FileUtils.rm(["C.clean.sdbm.dir",
+@@ -100,7 +100,7 @@ def unlink_token_sdbm(options = {})
+                   "ja.clean.sdbm.lock",
+                   "ja.spam.sdbm.dir",
+                   "ja.spam.sdbm.pag",
+-                  "ja.spam.sdbm.lock"], options)
++                  "ja.spam.sdbm.lock"], **options)
+ end
+ 
+ 
+@@ -108,7 +108,7 @@ def unlink_prob_gdbm(options = {})
+     FileUtils.rm(["C.prob.gdbm",
+                   "C.prob.gdbm.lock",
+                   "ja.prob.gdbm",
+-                  "ja.prob.gdbm.lock"], options)
++                  "ja.prob.gdbm.lock"], **options)
+ end
+ def unlink_token_gdbm(options = {})
+     FileUtils.rm(["C.clean.gdbm",
+@@ -118,14 +118,14 @@ def unlink_token_gdbm(options = {})
+                   "C.spam.gdbm",
+                   "C.spam.gdbm.lock",
+                   "ja.spam.gdbm",
+-                  "ja.spam.gdbm.lock"], options)
++                  "ja.spam.gdbm.lock"], **options)
+ end
+ 
+ def unlink_prob_bdb(options = {})
+     FileUtils.rm(["C.prob.bdb",
+                   "C.prob.bdb.lock",
+                   "ja.prob.bdb",
+-                  "ja.prob.bdb.lock"], options)
++                  "ja.prob.bdb.lock"], **options)
+ end
+ 
+ def unlink_token_bdb(options = {})
+@@ -136,14 +136,14 @@ def unlink_token_bdb(options = {})
+                   "C.spam.bdb",
+                   "C.spam.bdb.lock",
+                   "ja.spam.bdb",
+-                  "ja.spam.bdb.lock"], options)
++                  "ja.spam.bdb.lock"], **options)
+ end
+ 
+ def unlink_prob_qdbm(options = {})
+     FileUtils.rm(["C.prob.qdbm",
+                   "C.prob.qdbm.lock",
+                   "ja.prob.qdbm",
+-                  "ja.prob.qdbm.lock"], options)
++                  "ja.prob.qdbm.lock"], **options)
+ end
+ 
+ def unlink_token_qdbm(options = {})
+@@ -154,7 +154,7 @@ def unlink_token_qdbm(options = {})
+                   "C.spam.qdbm",
+                   "C.spam.qdbm.lock",
+                   "ja.spam.qdbm",
+-                  "ja.spam.qdbm.lock"], options)
++                  "ja.spam.qdbm.lock"], **options)
+ end
+ 
+ class TestMultipleInstances < Test::Unit::TestCase
+@@ -300,7 +300,7 @@ class TestJtokenizer < Test::Unit::TestC
+     assert_equal(0, @bsfilter.count_message(/tokenizer ja body ¸þÆü°ª/), "3 letters")
+   end
+ 
+-  def test_mecab
++  def _test_mecab
+     assert_nothing_raised('Warning: ignore this test if MeCab is NOT installed') do
+       @bsfilter.setup($default_options + ["--jtokenizer", "mecab"])
+     end
+@@ -422,8 +422,8 @@ class TestDBM < Test::Unit::TestCase
+     unlink_prob_gdbm
+   end
+ 
+-  def test_bdb
+-    assert_nothing_raised('Warning: ignore this test if BDB is NOT installed') do
++  def _test_bdb
++    assert_nothing_raised('Warning: ignore this test if Bpt DB is NOT installed') do
+       @bsfilter.setup($default_options + ["--db", "bdb", "-c"])
+     end
+     @bsfilter.use_dummyfh

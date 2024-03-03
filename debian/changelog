@@ -1,5 +1,174 @@
-template-repository (1.0-1) unstable; urgency=medium
+bsfilter (1:1.0.19-4) unstable; urgency=medium
 
-  * Initial release
+  * Team upload
+  * Disable test gdbm for now as ruby extension of gdbm is not
+    packaged. (Closes: #1019604)
+  * Bump Standards-Version to 4.6.2
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Abhijith PA <abhijith@debian.org>  Thu, 12 Jan 2023 00:31:46 +0530
+
+bsfilter (1:1.0.19-3) unstable; urgency=medium
+
+  [ Caitlin Matos ]
+  * use d/pkg.examples instead of override_dh_installexamples
+  * build against gem2deb
+
+  [ Cédric Boutillier ]
+  * Bump debhelper compatibility level to 9
+  * Remove version in the gem2deb build-dependency
+  * Use https:// in Vcs-* fields
+  * Bump Standards-Version to 3.9.7 (no changes needed)
+  * Run wrap-and-sort on packaging files
+
+  [ Utkarsh Gupta ]
+  * Add salsa-ci.yml
+
+  [ Debian Janitor ]
+  * Trim trailing whitespace.
+  * Use secure copyright file specification URI.
+  * Bump debhelper from deprecated 9 to 12.
+  * Set debhelper-compat version in Build-Depends.
+  * Update Vcs-* headers from URL redirect.
+  * Use canonical URL in Vcs-Git.
+  * Apply multi-arch hints.
+    + bsfilter: Add :any qualifier for ruby dependency.
+  * Drop fields with obsolete URLs.
+  * Bump debhelper from old 12 to 13.
+
+  [ Antonio Terceiro ]
+  * Add patch fix tests to run on modern Ruby
+  * Add dependency on ruby-sdbm (Closes: #1006352)
+  * Run tests during build and under autopkgtest
+
+ -- Antonio Terceiro <terceiro@debian.org>  Tue, 01 Mar 2022 18:26:49 -0300
+
+bsfilter (1:1.0.19-2) unstable; urgency=medium
+
+  * Team upload.
+  * End support for kakasi, which is ruby1.8-only
+  * Stop hard-coding supported Ruby versions
+  * Bump Standards-Version to 3.9.5 (no changes)
+
+ -- Christian Hofstaedtler <zeha@debian.org>  Fri, 14 Feb 2014 15:56:25 +0100
+
+bsfilter (1:1.0.19-1) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Cédric Boutillier ]
+  * use canonical URI in Vcs-* fields
+
+  [ Christian Hofstaedtler ]
+  * New upstream version for Ruby 1.9, 2.0
+
+ -- Christian Hofstaedtler <zeha@debian.org>  Sun, 22 Dec 2013 18:27:43 +0100
+
+bsfilter (1:1.0.17-3) unstable; urgency=low
+
+  * debian/control: Add XS-Ruby-Versions and XB-Ruby-Versions for using
+    Ruby1.8.
+  * debian/control: Add some Ruby dependency to run test suote.
+  * debian/copyright: Convert to the Debian copyright format version 1.0.
+  * debian/docs: Add HTML document to the package.
+  * debian/rules: Add to run test suite (but currently disabled).
+  * Add debian/patches/010_disable_chasen not to use chasen.
+  * Add debian/patches/020_disable_bdb1 not to use bdb1.
+
+ -- Taku YASUI <tach@debian.org>  Sun, 17 Jun 2012 21:54:15 +0900
+
+bsfilter (1:1.0.17-2) unstable; urgency=low
+
+  * Change maintainer to Debian Ruby Extras Maintainers.
+    - akira yamada <akira@debian.org> and Taku YASUI <tach@debian.org>
+      are uploaders.
+  * Commit debian source to git.debian.org.
+    - git://git.debian.org/pkg-ruby-extras/bsfilter.git
+    - Add Vcs metadata to debian/control.
+  * Change dependency for applying Ruby package name transition.
+  * Bump Standards-Verson to 3.9.3.
+  * Change debhelper compat level to 8.
+
+ -- Taku YASUI <tach@debian.org>  Tue, 08 May 2012 18:22:06 +0900
+
+bsfilter (1:1.0.17-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Add docbook-to-man to build-depends to fix FTBFS (Closes: #625195)
+
+ -- Scott Kitterman <scott@kitterman.com>  Thu, 05 May 2011 00:18:35 -0400
+
+bsfilter (1:1.0.17-1) unstable; urgency=low
+
+  * new upstream version.
+  * updated manpage.
+
+ -- akira yamada <akira@debian.org>  Mon, 18 Apr 2011 18:23:24 +0900
+
+bsfilter (1:1.0.15-2) unstable; urgency=low
+
+  * remove libdb{2,3}-ruby1.8 from Recommends.  (closes: #439544)
+
+ -- akira yamada <akira@debian.org>  Mon, 27 Aug 2007 13:02:05 +0900
+
+bsfilter (1:1.0.15-1) unstable; urgency=low
+
+  * New upstream release (closes: #390176)
+
+ -- akira yamada <akira@debian.org>  Thu, 26 Apr 2007 10:13:23 +0900
+
+bsfilter (1:1.0.14-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- akira yamada <akira@debian.org>  Tue, 15 Aug 2006 17:32:34 +0900
+
+bsfilter (1:1.0.13-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- akira yamada <akira@debian.org>  Sun, 23 Apr 2006 18:40:46 +0900
+
+bsfilter (1:1.0.9-1) unstable; urgency=low
+
+  * new upstream version.  (closes: #318638)
+  * depends on "ruby1.8" instead of "ruby".
+
+ -- akira yamada <akira@debian.org>  Sat, 30 Jul 2005 14:49:30 +0900
+
+bsfilter (1:1.0.4-1) unstable; urgency=low
+
+  * new upstream version.
+
+ -- akira yamada <akira@debian.org>  Sat, 14 Aug 2004 18:55:06 +0900
+
+bsfilter (1:1.0.2-1) unstable; urgency=low
+
+  * new upstream version.  (closes: #248411)
+  * updated debian/copyright.
+
+ -- akira yamada <akira@debian.org>  Wed, 12 May 2004 21:18:48 +0900
+
+bsfilter (1:1.0.1-1) unstable; urgency=low
+
+  * new upstream version.
+
+ -- akira yamada <akira@debian.org>  Tue, 30 Mar 2004 09:27:20 +0900
+
+bsfilter (1:1.0.0-1) unstable; urgency=low
+
+  * new upstream version.  (versioning scheme of the upstream source is
+    chancged.)
+
+ -- akira yamada <akira@debian.org>  Mon,  1 Mar 2004 12:41:11 +0900
+
+bsfilter (1.38-1) unstable; urgency=low
+
+  * new upstream version.
+
+ -- akira yamada <akira@debian.org>  Sat, 27 Dec 2003 16:59:39 +0900
+
+bsfilter (1.37-1) unstable; urgency=low
+
+  * Initial Release.  (closes: #209092)
+
+ -- akira yamada <akira@debian.org>  Mon, 15 Dec 2003 12:20:53 +0900

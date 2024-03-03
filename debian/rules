@@ -1,4 +1,21 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
 
 %:
-	dh $@
+	dh $@ --buildsystem=ruby --with ruby
+
+override_dh_install:
+	install -d debian/bsfilter/usr/bin
+	install bsfilter/bsfilter debian/bsfilter/usr/bin
+	dh_install
+
+override_dh_installman:
+	/usr/bin/docbook-to-man debian/manpage.sgml > debian/bsfilter.1
+	dh_installman debian/bsfilter.1
+
+override_dh_clean:
+	-rm -f debian/bsfilter.1
+	dh_clean
